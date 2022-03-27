@@ -1,0 +1,7 @@
+app_secret = "secret"
+
+db_user = "user"
+db_password = "password"  # PUT YOUR PASSWORD
+db_host = "localhost"  # PUT YOUR Database Connect String
+db_port = "3306"
+db_name = "device_management"

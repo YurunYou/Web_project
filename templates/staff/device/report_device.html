@@ -1,0 +1,17 @@
+{% extends "staff/layout.html" %}
+{% block title %}Report broken device{% endblock %}
+
+{% block content %}
+<div class="mydiv">
+    <form method="POST" >
+        <h2>Report Broken Device</h2>
+        <br/>
+        {{ form.hidden_tag() }}
+        {{ form.comments.label(class="form-label") }}
+        <br/>
+        {{form.comments(class="form-control") }}
+        <br/>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}

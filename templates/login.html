@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+<br/>
+<br/>
+<h1 class="p-5 text-center btn-dark " >Device Management System</h1>
+
+  <br/>
+  <br/>
+
+<div class="container-fluid align-middle mt-5">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="bg-light mt-4 p-4">
+                <form action="/login" method="POST" class="row g-3">
+                    <h3 style="text-align:center">Welcome </h3>
+                    <div class="col-12">
+                        <select class="form-select" name="user_id">
+                            <option selected style="text-align:center">Please select your name to login</option>
+                            {% for user in users %}
+                            <option value={{user[0]}}>{{user[1]}} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-dark float-end">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+{% endblock %}

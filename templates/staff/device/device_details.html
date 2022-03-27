@@ -1,0 +1,72 @@
+{% extends "staff/layout.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Device: {{device[1]}}</h2>
+
+    <table class="table table-bordered ">
+        <tr>
+            <td width="30%"><b>Device Name:</b></td>
+            <td width="70%">{{device[1]}}</td>
+        </tr>
+        <tr>
+            <td><b>Status:</b></td>
+            <td>{{device[12].title() if device[12]}}</td>
+        </tr>
+        <tr>
+            <td><b>Device Type:</b></td>
+            <td>{{device[2].title() if device[2]}}</td>
+        </tr>
+        <tr>
+            <td><b>Model:</b></td>
+            <td>{{device[3]}}</td>
+        </tr>
+        <tr>
+            <td><b>OS Type:</b></td>
+            <td>{{device[4]}}</td>
+        </tr>
+        <tr>
+            <td><b>OS Version:</b></td>
+            <td>{{device[5]}}</td>
+        </tr>
+        <tr>
+            <td><b>RAM:</b></td>
+            <td>{{device[6]}}</td>
+        </tr>
+        <tr>
+            <td><b>CPU:</b></td>
+            <td>{{device[7]}}</td>
+        </tr>
+        <tr>
+            <td><b>Bit:</b></td>
+            <td>{{device[8]}}</td>
+        </tr>
+        <tr>
+            <td><b>Screen Resolution:</b></td>
+            <td>{{device[9]}}</td>
+        </tr>
+        <tr>
+            <td><b>Grade:</b></td>
+            <td>{{device[10]}}</td>
+        </tr>
+        <tr>
+            <td><b>UUID:</b></td>
+            <td>{{device[11]}}</td>
+        </tr>
+        <tr>
+            <td><b>User:</b></td>
+            <td>{{device[14]}}</td>
+        </tr>
+        <tr>
+            <td><b>Due Date:</b></td>
+            <td>{{device[15] | format_nz_date}}</td>
+        </tr>
+    </table>
+    <div class="col-md-12">
+        {% if device[12] != 'broken' and device[13] and session['current_user'][0] == device[13] %}
+        <a type="button" class="btn btn-primary" href="{{url_for('staff_module.staff_unassign_device', device_id = device[0])}}">Unassign</a>
+        {% elif not device[13] and device[12] != 'broken'%}
+        <a type="button" class="btn btn-primary" href="/staff/device/{{device[0]}}/assign">Assign</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between mt-4 mb-2">
+        <div>
+            <h2>Overdue Devices Report</h2>
+        </div>   
+    </div>
+</br></br></br></br>
+
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Device Name</th>
+            <th scope="col">Device Type</th>
+            <th scope="col">Model</th>
+            <th scope="col">Assignee</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Due Date</th>
+            
+        </tr>
+        </thead>
+        <tbody>
+        {% for device in devices %}
+        <tr>
+            <td>{{device[0]}}</td>
+            <td>{{device[1]}}</td>
+            <td>{{device[2]}}</td>
+            <td>{{device[3]}}</td>
+            <td>{{device[4]}}</td>
+            <td>{{device[5]}}</td>
+            
+            
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

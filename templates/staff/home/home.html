@@ -1,0 +1,49 @@
+{% extends "staff/layout.html" %}
+{% block content %}
+
+</br></br>
+<h1 align="center" >Welcome back, {{user[1]}}</h1>
+
+</br></br>
+
+<!--ctrl+/  -->
+<div class="container">
+    <div class="d-flex justify-content-between mt-4 mb-2">
+        <div>
+            <h2>My Devices</h2>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Device Name</th>
+            <th scope="col">Device Type</th>
+            <th scope="col">Model</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Return</th>
+            <th scope="col">Report</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for device in devices %}
+        <tr>
+            <td>{{device[1]}}</td>
+            <td>{{device[2]}}</td>
+            <td>{{device[3]}}</td>
+            <td>{{device[4]}}</td>
+            <td>
+                <a button type="button" class="btn btn-danger btn-sm" href="{{url_for('staff_module.staff_unassign_device', device_id = device[0])}}">Unassign</a>
+            </td>
+            <td>
+                <a button type="button" class="btn btn-danger btn-sm" href="/staff/device/{{user[0]}}/{{device[0]}}/broken">Broken</a>
+            </td>
+        </tr>
+    </td>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+

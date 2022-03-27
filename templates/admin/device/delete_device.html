@@ -1,0 +1,71 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+<div class="container">
+    <h2 class="mt-3">Confirm Delete Device</h2>
+    <form action="/admin/device/{{id}}/delete" class="row g-3" method="POST">
+        <div class="col-md-6 form-group ">
+            <label for="device_name" class="form-label">Device Name</label>
+            <input type="text" class="form-control" id="device_name" value="{{device[1]}}"
+                   name="device_name" disabled>
+        </div>
+        <div class="col-md-6 form-group ">
+            <label for="device_type" class="form-label">Device Type</label>
+            <input type="text" class="form-control" id="device_type" value="{{device[2]}}"
+            name="device_type" disabled> 
+        </div>
+        <div class="col-md-6 form-group ">
+            <label for="model" class="form-label">Model</label>
+            <input type="text" class="form-control" id="model" value="{{device[3]}}"
+                   name="model" disabled>
+        </div>
+        <div class="col-md-6 form-group ">
+            <label for="os_type" class="form-label">OS Type</label>
+            <input type="text" class="form-control" id="os_type" value="{{device[4]}}"
+                   name="os_type" disabled>
+        </div>
+        <div class="col-md-6">
+            <label for="os_version" class="form-label">OS Version</label>
+            <input type="text" class="form-control" id="os_version" value="{{device[5]}}"
+                   name="os_version" disabled>
+        </div>
+        <div class="col-md-6">
+            <label for="ram" class="form-label">RAM</label>
+            <input type="text" class="form-control" id="ram" value="{{device[6]}}"
+                   name="ram" disabled>
+        </div>
+        <div class="col-md-6 ">
+            <label for="cpu" class="form-label">CPU</label>
+            <input type="text" class="form-control" id="cpu" value="{{device[7]}}" name="cpu"
+                   disabled>
+        </div>
+        <div class="col-md-6 ">
+            <label for="bit" class="form-label">BIT</label>
+            <input type="text" class="form-control" id="bit" value="{{device[8]}}" name="bit" disabled>
+        </div>
+        <div class="col-md-6">
+            <label for="screen_resolution" class="form-label">Screen Resolution</label>
+            <input type="text" class="form-control" id="screen_resolution" value="{{device[9]}}" name="screen_resolution" disabled>
+        </div>
+        <div class="col-md-6 ">
+            <label for="grade" class="form-label">Grade</label>
+            <input type="text" class="form-control" id="grade " value="{{device[10]}}"
+                   name="grade " disabled>
+        </div>
+        <div class="col-md-6 ">
+            <label for="uuid " class="form-label">UUID</label>
+            <input type="text" class="form-control" id="uuid " value="{{device[11]}}"
+                   name="uuid " disabled>
+        </div>
+        <div class="col-md-6 form-group  ">
+            <label for="device_status" class="form-label">Device Status</label>
+            <input type="text" class="form-control" id="device_status " value="{{device[12]}}"
+            name="device_status " disabled>
+        </div>
+
+        
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">DELETE</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

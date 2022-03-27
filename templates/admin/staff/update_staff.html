@@ -1,0 +1,59 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+
+
+<div class="container">
+    <h2 class="mt-3">Update Staff</h2>
+    <form action="/admin/staff/{{staff[0]}}/edit" class="row g-3" method="POST">
+        <div class="col-md-6 form-group ">
+            <label for="full_name" class="form-label">Full name</label>
+            <input type="text" class="form-control" id="full_name"
+                   value="{{staff[1]}}" name="full_name" maxlength="50">
+        </div>
+
+
+        <!-- <div class="col-md-6 form-group ">
+            <label for="full_name" class="form-label">Office</label>
+            <input type="text" class="form-control" id="office"
+                   value="{{staff[2]}}" name="office" maxlength="50">
+        </div> -->
+        
+        <div class="col-md-6 form-group ">
+            <label for="office" class="form-label">Office</label>
+            <select id='office' name='office' class="form-control">
+               
+                {% if staff[2]=='A'%}
+                <option selected>A</option>
+                <option >B</option>
+                {% elif staff[2]=='B' %}
+                <option >A</option>
+                <option selected>B</option>
+                {% endif %}
+
+              
+            </select>    
+        </div>
+
+    
+
+
+        <div class="col-md-6">
+            <label for="contact" class="form-label">Contact</label>
+            <input type="tel" class="form-control" id="contact" pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}" value="{{staff[3]}}"
+                   name="contact" maxlength="50" >   
+        </div>
+        
+
+       
+        <div class="form-check form-switch switch form-group ">
+            <input class="form-check-input" type="checkbox" role="switch" id="admin_access" name="admin_access" {{'checked' if ((form and 'on'==form.get('admin_access')|string()) or (not form
+            and '1'==staff[4]|string()))}}>
+            <label class="form-check-label" for="admin_access">Admin Access</label>
+        </div>
+
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary" >Update</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

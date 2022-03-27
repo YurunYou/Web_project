@@ -1,0 +1,149 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between mt-4 mb-2">
+        <div>
+            <h2>Devices</h2>
+        </div>
+        <div>
+            <a href="/admin/device/create" class="btn btn-success"><i class="bi bi-plus-circle-fill"></i> Add Device</a>
+        </div>
+    </div>
+
+    <div class="container mt-2 mb-3">
+        <form action="/admin/device/search" method="POST">
+            <div class="row">
+                <div class="col-md-3 ps-0">
+                    <select id="device_type" name="device_type" class="form-control">
+                    <option value="">Select device type</option>
+                    {% for device_type in device_types %}
+                    <option value="{{device_type.value}}" {{
+                'selected' if (search_form and device_type.value|string()==search_form.get('device_type')|string())}}>{{device_type.value}}</option>
+                    {% endfor %}
+                </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="os_type" name="os_type" class="form-control">
+                        <option value="">Select OS type</option>
+                        {% for os_type in os_types %}
+                        <option value="{{os_type.value}}" {{
+                'selected' if (search_form and os_type.value|string()==search_form.get('os_type')|string())}}>{{os_type.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="ram" name="ram" class="form-control">
+                        <option value="">Select RAM</option>
+                        {% for ram in ram_list %}
+                        <option value="{{ram[0]}}" {{
+                'selected' if (search_form and ram[0]|string()==search_form.get('ram')|string())}}>{{ram[0]}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="cpu" name="cpu" class="form-control">
+                        <option value="">Select CPU</option>
+                        {% for cpu in cpu_list %}
+                        <option value="{{cpu[0]}}" {{
+                'selected' if (search_form and cpu[0]|string()==search_form.get('cpu')|string())}}>{{cpu[0]}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-md-9 ps-0">
+                    <input type="text" class="form-control" id="search" name="search"
+                           placeholder="Search by device name" value="{{search_form.get('search') if search_form}}"/>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm();">Reset</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">OS</th>
+            <th scope="col">CPU</th>
+            <th scope="col">RAM</th>
+            <th scope="col">Status</th>
+            <th scope="col">User</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Actions</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for device in devices %}
+        <tr>
+            <td><a href="/admin/device/{{device[0]}}">{{device[1]}}</a></td>
+            <td>{{device[2]}}</td>
+            <td>{{device[3]}}</td>
+            <td>{{device[4]}}</td>
+            <td>{{device[5]}}</td>
+            <td class={{'device-' + device[6]}}>{{device[6].title() if device[6]}}</td>
+            <td>{{device[7]}}</td>
+            <td>{{device[8] | format_nz_date}}</td>
+            <td>
+                <a type="button" class="btn btn-primary btn-sm" href="/admin/device/{{device[0]}}/edit">Edit</a>
+            </td>
+            <td>
+                {% if device[6] !="broken" %} 
+                {% if device[7]=="" or device[7]==null %}  
+                <a type="button" class="btn btn-primary btn-sm" href="/admin/device/{{device[0]}}/assign">Assign</a>
+                {% else %}  
+                <a type="button" class="btn btn-primary btn-sm" href="/admin/device/{{device[0]}}/unassign">Unassign</a>
+                {% endif %}
+                {% endif %}
+            </td>
+            <td>
+                {% if device[6]=="available" or device[6]=="broken" %}  
+                <a type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#DeleteModel{{device[0]}}">Delete</a>
+                {% endif %}
+                <!-- Modal -->
+                <div class="modal fade" id="DeleteModel{{device[0]}}" tabindex="-1" aria-labelledby="DeleteModel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">      
+                            <form action="/admin/device/{{device[0]}}/delete" class="row g-3" method="POST">
+                                <div class="modal-header">
+                                
+                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                
+                                </div>
+                                <div class="modal-body">
+                                    <h5 class="modal-title" id="DeleteModel">Are you sure you want to Delete the selected device: {{device[1]}} </h5>
+
+                               
+                                </div>    
+                                <div class="modal-footer">
+                                  
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="left">Cancel</button>
+                                <button type="submit" class="btn btn-primary" >Delete</button>
+                                </div>    
+                            </form>
+                        </div>
+                    </div>
+              </div>
+            </td>
+            
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    function resetForm() {
+        document.getElementById('device_type').selectedIndex = 0;
+        document.getElementById('os_type').selectedIndex = 0;
+        document.getElementById('ram').selectedIndex = 0;
+        document.getElementById('cpu').selectedIndex = 0;
+        document.getElementById('search').value='';
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "staff/layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between mt-4 mb-2">
+        <div>
+            <h2>All Devices</h2>
+        </div>   
+    </div>
+
+    <div class="container mt-2 mb-3">
+        <form action="/staff/device/search" method="POST">
+            <div class="row">
+                <div class="col-md-3 ps-0">
+                    <select id="device_type" name="device_type" class="form-control">
+                    <option value="">Select device type</option>
+                    {% for device_type in device_types %}
+                    <option value="{{device_type.value}}" {{
+                'selected' if (search_form and device_type.value|string()==search_form.get('device_type')|string())}}>{{device_type.value}}</option>
+                    {% endfor %}
+                </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="os_type" name="os_type" class="form-control">
+                        <option value="">Select OS type</option>
+                        {% for os_type in os_types %}
+                        <option value="{{os_type.value}}" {{
+                'selected' if (search_form and os_type.value|string()==search_form.get('os_type')|string())}}>{{os_type.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="ram" name="ram" class="form-control">
+                        <option value="">Select RAM</option>
+                        {% for ram in ram_list %}
+                        <option value="{{ram[0]}}" {{
+                'selected' if (search_form and ram[0]|string()==search_form.get('ram')|string())}}>{{ram[0]}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="cpu" name="cpu" class="form-control">
+                        <option value="">Select CPU</option>
+                        {% for cpu in cpu_list %}
+                        <option value="{{cpu[0]}}" {{
+                'selected' if (search_form and cpu[0]|string()==search_form.get('cpu')|string())}}>{{cpu[0]}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-md-9 ps-0">
+                    <input type="text" class="form-control" id="search" name="search"
+                           placeholder="Search by device name" value="{{search_form.get('search') if search_form}}"/>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm();">Reset</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">OS</th>
+            <th scope="col">CPU</th>
+            <th scope="col">RAM</th>
+            <th scope="col">Status</th>
+            <th scope="col">User</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Assign/Unassign</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for device in devices %}
+        <tr>
+            <td><a href="/staff/device/{{device[0]}}/details">{{device[1]}}</a></td>
+            <td>{{device[2]}}</td>
+            <td>{{device[3]}}</td>
+            <td>{{device[4]}}</td>
+            <td>{{device[5]}}</td>
+            <td class={{'device-' + device[6]}}>{{device[6].title() if device[6]}}</td>
+            <td>{{device[7]}}</td>
+            <td>{{device[8] | format_nz_date}}</td>
+            <td>
+                {% if device[6]=="available" %}  
+                <a href="/staff/device/{{device[0]}}/assign" class="btn btn-primary btn-sm" role="button" aria-pressed="true"> Assign </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    function resetForm() {
+        document.getElementById('device_type').selectedIndex = 0;
+        document.getElementById('os_type').selectedIndex = 0;
+        document.getElementById('ram').selectedIndex = 0;
+        document.getElementById('cpu').selectedIndex = 0;
+        document.getElementById('search').value='';
+    }
+</script>
+{% endblock %}

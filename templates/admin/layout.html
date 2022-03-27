@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Device Management</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link {{'active' if request.path == '/admin/dashboard' }}" href="/admin/dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{'active' if request.path == '/admin/device' }}" href="/admin/device">Devices</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{'active' if request.path == '/admin/staff' }}" href="{{url_for('admin_module.admin_staff')}}">Staff Management</a>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle {{'active' if request.path.startswith('/admin/report') }}" href="#" role="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Reports
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <li><a class="dropdown-item" href="/admin/report/broken_devices">Broken Devices Report</a></li>
+                          <li><a class="dropdown-item" href="/admin/report/overdue">Overdue Report</a></li>
+                          <li><a class="dropdown-item" href="{{url_for('admin_module.most_popular_device')}}">Popular Devices Report</a></li>
+                        </ul>
+                      </div>
+                </li>
+            </ul>
+            <div class="d-flex dropdown">
+                <button class="btn btn-dark dropdown-toggle" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{session['current_user'][1]}}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="userMenuButton">
+                  <li><a class="dropdown-item" href="/admin/switch">Switch to staff</a></li>
+                  <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+{% endblock %}

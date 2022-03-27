@@ -1,0 +1,48 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+<div class="container">
+    <h2 class="mt-3">Delete Staff</h2>
+    <form action="/admin/staff/{{staff[0]}}/delete" class="row g-3" method="POST">
+        <div class="col-md-6 form-group required">
+            <label for="first-name" class="form-label">Full name</label>
+            <input type="text" class="form-control" id="full_name"
+                   value="{{form.get('full_name') if form else staff[1]}}" name="full_name" maxlength="50" >
+        </div>
+        <div class="col-md-6 form-group required">
+            <label for="last-name" class="form-label">Office</label>
+            <input type="text" class="form-control" id="office"
+                   value="{{form.get('office') if form else staff[2]}}" name="office" maxlength="50" >
+        </div>
+        <div class="col-md-6">
+            <label for="address1" class="form-label">Contact</label>
+            <input type="text" class="form-control" id="contact"
+                   value="{{form.get('contact') if form else staff[3]}}" name="contact" maxlength="50" >
+        </div>
+        
+       
+        <div class="form-check form-switch switch form-group required">
+            <input class="form-check-input" type="checkbox" role="switch" id="admin_access" name="admin_access" {{'checked' if ((form and 'on'==form.get('admin_access')|string()) or (not form
+            and '1'==staff[4]|string()))}}>
+            <label class="form-check-label" for="admin_access">Admin Access</label>
+        </div>
+
+<!-- 
+        <div class="col-md-6">
+            <label for="address1" class="form-label">User Status</label>
+            <input type="text" class="form-control" id="user_status"
+                   value="{{form.get('user_status') if form else staff[5]}}" name="contact" maxlength="50" >
+        </div> -->
+
+        <div class="form-check form-switch switch form-group required">
+            <input class="form-check-input" type="checkbox" role="switch" id="user_status" name="user_status" {{'checked' if ((form and 'on'==form.get('user_status')|string()) or (not form
+            and 'Active'==staff[5]|string()))}}>
+            <label class="form-check-label" for="user_status">User Status</label>
+        </div>
+
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary" >Update</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

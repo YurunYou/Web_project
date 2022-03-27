@@ -1,0 +1,30 @@
+.table-striped>tbody>tr:nth-of-type(odd)>.device-available, .device-available {
+  color: #198754;
+  font-weight: bold;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>.device-unavailable, .device-unavailable {
+  color: #fd7e14;
+  font-weight: bold;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>.device-broken, .device-broken {
+  color: red;
+  font-weight: bold;
+}
+
+
+
+.form-group.required .form-label:after,
+.form-group.required .form-check-label:after {
+  content:"*";
+  color:red;
+}
+
+.mydiv {
+    width: auto;
+    height: 500px;
+    padding: 30px 450px;
+    border-radius: 4px;
+    text-align: center
+  }

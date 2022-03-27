@@ -1,0 +1,75 @@
+{% extends "admin/layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between mt-4 mb-2">
+        <div>
+            <h2>Staff Information</h2>
+        </div>
+        <div>
+            <a href="{{url_for('admin_module.admin_create_staff')}}" class="btn btn-success"><i class="bi bi-plus-circle-fill"></i> Add staff</a>
+        </div>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Office</th>
+            <th scope="col">Contact</th>
+            <th scope="col">Admin Access</th>
+            <th scope="col">Actions</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        
+        <tbody>
+        {% for user in users %}
+        
+        <tr>
+            <td>{{user[1]}}</td>
+            <td>{{user[2]}}</td>
+            <td>{{user[3]}}</td>
+            <td>{% if user[4]==1 %} Yes {% else %} No {% endif %}</td>
+            <td><a type="button" class="btn btn-primary btn-sm" href="/admin/staff/{{user[0]}}/edit">Edit</a></td>
+           
+            
+
+        
+            
+            <td>
+                      <!-- Button trigger modal  -->
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal{{user[0]}}" >DELETE</button>
+                   <!-- Modal -->
+            <div class="modal fade" id="exampleModal{{user[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">      
+                  <form action="/admin/staff/{{user[0]}}/delete" class="row g-3" method="POST">
+                    <div class="modal-body">
+                        <h5 class="modal-title" id="DeleteModel">Do you want to delete {{user[1]}} </h5>
+                    </div>  
+                     <div class="modal-footer">
+                     <button type="submit" class="btn btn-primary" >Yes</button>
+                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    </div>    
+                </form>
+                </div>
+              </div>
+            </div>
+            </td> 
+
+            
+            
+            
+         
+
+        </tr>
+        
+        {% endfor %}  
+
+        </tbody>
+        
+    </table>     
+              
+  
+    </div>
+    {% endblock %}
